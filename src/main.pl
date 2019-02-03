@@ -37,8 +37,6 @@ sub main() {
 }
 
 sub handle_update {
-    my $board = shift;
-
     state $last_updated = 0;
 
     if (time() - $last_updated > UPDATE_TIME_S) {
@@ -84,7 +82,7 @@ sub move_piece {
     # Redraw the piece in the new location.
     set_piece_board_data($piece, \@board, $piece->{color});
 
-    return 1;
+    1;
 }
 
 sub shift_rows_above {

@@ -12,8 +12,8 @@ use List::Flatten;
 use List::Util qw(min max);
 use List::MoreUtils qw(zip);
 
-# individual piece prototypes are modeled as a list of pairs indicating the relative location of each block
-# by an offset from the top left (0, 0] of the piece
+# Individual piece prototypes are modeled as a list of pairs indicating the relative location of each 'block'
+# by an offset from rotation origin (0, 0) of the piece.
 use constant {
     _PIECE_O => {
         pairs  => [
@@ -27,9 +27,9 @@ use constant {
     _PIECE_I => {
         pairs => [
             [ 0, -1 ],
-            [ 0, 0  ],
-            [ 0, 1  ],
-            [ 0, 2  ],
+            [ 0,  0 ],
+            [ 0,  1 ],
+            [ 0,  2 ],
         ],
         color => Renderer::BLUE,
     },
@@ -53,9 +53,9 @@ use constant {
     },
     _PIECE_S => {
         pairs => [
-            [ 0, 0  ],
-            [ 1, 0  ],
-            [ 0, 1  ],
+            [  0, 0 ],
+            [  1, 0 ],
+            [  0, 1 ],
             [ -1, 1 ],
         ],
         color => Renderer::ORANGE,
@@ -71,7 +71,7 @@ use constant {
     },
     _PIECE_Z => {
         pairs => [
-            [ -1, 0  ],
+            [ -1,  0 ],
             [  0,  0 ],
             [  0,  1 ],
             [  1,  1 ],
@@ -90,7 +90,7 @@ sub abs_pairs {
     # Apply our rotations first.
     for (my $i = 0; $i < $self->{rotation}; ++$i) {
         my $pairs = $abs_pairs;
-        # Rotate about the current origin. # TODO: Map.
+        # Rotate about the current origin.
         for my $pair (@{$pairs}) {
             @$pair = (-$pair->[1], $pair->[0]);
         }
@@ -119,11 +119,11 @@ sub new {
     bless($piece, 'Piece');
 
     # Clone so we don't touch our constant references above if we're passed one in during construction.
-    return $piece->clone();
+    $piece->clone();
 }
 
 sub random {
-    return new($_PIECES[rand(scalar @_PIECES)]);
+    new($_PIECES[rand(scalar @_PIECES)]);
 }
 
 sub contains {
@@ -135,7 +135,7 @@ sub contains {
         return 1 if $x == $_x && $y == $_y;
     }
 
-    return 0;
+    0;
 }
 
 sub clone {
@@ -153,7 +153,7 @@ sub clone {
     $clone->{dy} += $dy;
     $clone->{rotation} = ($clone->{rotation} + $rotation) % 4;
 
-    return $clone;
+    $clone;
 }
 
 1;

@@ -51,7 +51,7 @@ sub get_color {
         PURPLE, 'purple'
     );
 
-    return $mapping{$color};
+    $mapping{$color};
 }
 
 sub update {
