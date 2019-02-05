@@ -6,7 +6,7 @@ use v5.14;
 
 use Storable qw(dclone);
 
-use Renderer;
+use Perltris::Renderer;
 
 use List::Util qw(min max);
 
@@ -20,7 +20,7 @@ use constant {
             [ 1, 1 ],
             [ 0, 1 ],
         ],
-        color  => Renderer::YELLOW,
+        color  => Perltris::Renderer::YELLOW,
     },
     _PIECE_I => {
         pairs => [
@@ -29,7 +29,7 @@ use constant {
             [ 0,  1 ],
             [ 0,  2 ],
         ],
-        color => Renderer::BLUE,
+        color => Perltris::Renderer::BLUE,
     },
     _PIECE_L => {
         pairs     => [
@@ -38,7 +38,7 @@ use constant {
             [ 0,  1 ],
             [ 1,  1 ],
         ],
-        color => Renderer::RED,
+        color => Perltris::Renderer::RED,
     },
     _PIECE_J => {
         pairs     => [
@@ -47,7 +47,7 @@ use constant {
             [ 1,  1 ],
             [ 0,  1 ],
         ],
-        color => Renderer::GREEN,
+        color => Perltris::Renderer::GREEN,
     },
     _PIECE_S => {
         pairs => [
@@ -56,7 +56,7 @@ use constant {
             [  0, 1 ],
             [ -1, 1 ],
         ],
-        color => Renderer::ORANGE,
+        color => Perltris::Renderer::ORANGE,
     },
     _PIECE_T => {
         pairs => [
@@ -65,7 +65,7 @@ use constant {
             [  1, 0 ],
             [  0, 1 ],
         ],
-        color => Renderer::PINK,
+        color => Perltris::Renderer::PINK,
     },
     _PIECE_Z => {
         pairs => [
@@ -74,7 +74,7 @@ use constant {
             [  0,  1 ],
             [  1,  1 ],
         ],
-        color => Renderer::PURPLE,
+        color => Perltris::Renderer::PURPLE,
     }
 };
 
@@ -110,11 +110,11 @@ sub new {
         @$piece = ();
     }
 
-    $piece->{dx} = 3; # TODO: Introduce buffer zone above.
-    $piece->{dy} = 4;
+    $piece->{dx} = 4;
+    $piece->{dy} = 1;
     $piece->{rotation} = 0;
 
-    bless($piece, 'Piece');
+    bless($piece, 'Perltris::Piece');
 
     # Clone so we don't touch our constant references above if we're passed one in during construction.
     $piece->clone();

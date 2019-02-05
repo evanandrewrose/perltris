@@ -1,9 +1,11 @@
 #!perl
+package Perltris::Main;
+
 use strict;
 use warnings FATAL => 'all';
 use v5.14;
 
-use Perltris::Piece qw(new);
+use Perltris::Piece;
 use Perltris::Renderer;
 
 use Time::HiRes qw(time);
@@ -23,18 +25,18 @@ use constant {
 
 use constant {
     BOARD_WIDTH => 10,
-    BOARD_HEIGHT => 20,
+    BOARD_HEIGHT => 24,
 };
 
-my $piece = Piece::random();
+my $piece = Perltris::Piece::random();
 
 my @board = map [
     map(0, 0..BOARD_WIDTH - 1)
 ], 0..BOARD_HEIGHT - 1;
 
 sub main() {
-    Renderer::init(\@board, \&handle_update, \&handle_key_press);
-    Renderer::start();
+    Perltris::Renderer::init(\@board, \&handle_update, \&handle_key_press);
+    Perltris::Renderer::start();
 }
 
 sub handle_update {
@@ -76,7 +78,7 @@ sub move_piece {
     return 0 if not valid_piece_location($new_piece);
 
     # Clear the location where the piece currently exists.
-    set_piece_board_data($piece, \@board, Renderer::NONE);
+    set_piece_board_data($piece, \@board, Perltris::Renderer::NONE);
 
     $piece = $new_piece;
 
@@ -124,7 +126,7 @@ sub handle_piece_landed() {
     # TODO: Check if player lost.
 
     # Create a new piece to play with.
-    $piece = Piece::random();
+    $piece = Perltris::Piece::random();
 }
 
 sub handle_key_press {

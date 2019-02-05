@@ -8,29 +8,47 @@ use Time::HiRes qw(time);
 use Tk;
 
 use constant {
-    NONE => 0,
+    NONE   => 0,
     YELLOW => 1,
-    BLUE => 2,
-    RED => 3,
-    GREEN => 4,
+    BLUE   => 2,
+    RED    => 3,
+    GREEN  => 4,
     ORANGE => 5,
-    PINK => 6,
+    PINK   => 6,
     PURPLE => 7,
+    BLACK  => 8,
+};
+
+use constant {
+    WINDOW_WIDTH  => 250,
+    WINDOW_HEIGHT => 500
+};
+
+use constant {
+    BLOCK_WIDTH => WINDOW_WIDTH / 10,
+};
+
+use constant {
+    TOP_PADDING => BLOCK_WIDTH * 4,
 };
 
 sub init {
     my ($board, $handle_update, $handle_key_press) = @_;
 
-    my $window = Tk::MainWindow->new;
+    my $window = Tk::MainWindow->new(-background => get_color(BLACK));
+
+    $window->title('perltris');
+    $window->geometry(WINDOW_WIDTH . 'x' . WINDOW_HEIGHT);
+
     my $canvas = $window->Canvas;
 
     $window->bind('<KeyPress>' => $handle_key_press);
 
     $canvas->pack(-expand => 1, -fill => 'both');
-
     $canvas->after(0, sub {
         update($canvas, $board, $handle_update)
     });
+    $canvas->configure(-background => '#222');
 }
 
 sub start {
@@ -48,7 +66,8 @@ sub get_color {
         GREEN, 'green',
         ORANGE, 'orange',
         PINK, 'pink',
-        PURPLE, 'purple'
+        PURPLE, 'purple',
+        BLACK, 'black'
     );
 
     $mapping{$color};
@@ -75,14 +94,14 @@ sub update {
 sub draw_square {
     my ($canvas, $x, $y, $color) = @_;
 
-    my $x_c = $x . "c";
-    my $y_c = $y . "c";
+    my $x1 = $x * BLOCK_WIDTH;
+    my $y1 = $y * BLOCK_WIDTH - TOP_PADDING;
 
-    my $x2_c = $x + 1 . 'c';
-    my $y2_c = $y + 1 . 'c';
+    my $x2 = $x * BLOCK_WIDTH + BLOCK_WIDTH;
+    my $y2 = $y * BLOCK_WIDTH + BLOCK_WIDTH - TOP_PADDING;
 
     $canvas->createRectangle(
-        ($x_c, $y_c, $x2_c, $y2_c),
+        ($x1, $y1, $x2, $y2),
         -outline => $color,
         -fill => $color
     );
