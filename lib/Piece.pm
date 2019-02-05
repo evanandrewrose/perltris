@@ -1,4 +1,4 @@
-package Piece;
+package Perltris::Piece;
 
 use strict;
 use warnings FATAL => 'all';
@@ -8,9 +8,7 @@ use Storable qw(dclone);
 
 use Renderer;
 
-use List::Flatten;
 use List::Util qw(min max);
-use List::MoreUtils qw(zip);
 
 # Individual piece prototypes are modeled as a list of pairs indicating the relative location of each 'block'
 # by an offset from rotation origin (0, 0) of the piece.

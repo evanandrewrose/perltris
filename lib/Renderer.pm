@@ -1,4 +1,4 @@
-package Renderer;
+package Perltris::Renderer;
 
 use strict;
 use warnings FATAL => 'all';

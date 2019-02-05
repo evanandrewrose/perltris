@@ -1,9 +1,10 @@
+#!perl
 use strict;
 use warnings FATAL => 'all';
 use v5.14;
 
-use Piece qw(new);
-use Renderer;
+use Perltris::Piece qw(new);
+use Perltris::Renderer;
 
 use Time::HiRes qw(time);
 use List::Util qw(all);
@@ -59,7 +60,7 @@ sub valid_piece_location {
         # Check for boundaries.
         return 0 if ($y >= BOARD_HEIGHT || $y < 0 || $x < 0 || $x >= BOARD_WIDTH);
 
-        # Check for collision (only against piece that aren't the current piece!).
+        # Check for collision (except against the current piece).
         return 0 if $board[$y]->[$x] and !$piece->contains($x, $y);
     }
 
