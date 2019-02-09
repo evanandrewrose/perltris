@@ -1,5 +1,5 @@
 # Perltris
 
-## A depressing tetrodoodle implementation in perl.
+A tetromino stacking game implemented in perl.
 
 ![screenshot](/img/screenshot.png?raw=true "perltris")
