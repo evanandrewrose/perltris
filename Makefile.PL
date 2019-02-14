@@ -3,8 +3,8 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
   NAME             => 'perltris',
-  VERSION_FROM     => 'lib/Meta.pm',
-  ABSTRACT_FROM    => 'lib/Meta.pm',
+  VERSION_FROM     => 'lib/Perltris/Meta.pm',
+  ABSTRACT_FROM    => 'lib/Perltris/Meta.pm',
   AUTHOR           => 'Evan Rose',
   LICENSE          => 'freebsd',
   MIN_PERL_VERSION => '5.02',
